@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Luke Ross Stills</title>
+    <meta name="author" content="Luke Ross">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/gallery.css">
+
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+      <link rel="stylesheet" href="css/ie.css">
+    <![endif]-->
+    <script src="js/responsive-nav.js"></script>
+  </head>
+  <body>
+
+    <header>
+      <a href="#home" class="logo" data-scroll>Luke Ross Stills</a>
+      <nav class="nav-collapse">
+        <ul>
+          <li class="menu-item active"><a href="index.html" data-scroll>Home</a></li>
+          <li class="menu-item"><a href="unit-stills.html" data-scroll>Unit Stills</a></li>
+          <li class="menu-item"><a href="behind-the-scenes.html" data-scroll>Behind The Scenes</a></li>
+          <li class="menu-item"><a href="images/Unit-Stills-Luke-Ross-2022-CV.pdf" download>CV</a></li>
+          <li class="menu-item"><a href="contact.html" data-scroll>Contact</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <div id="main">
+        <div class="gallery" id="gallery">
+        </div>
+    </div>
+
+
+    <script>
+        var images = ["Dog Days-008.jpg", "Dog Days-009.jpg", "Dog Days-011.jpg", "Dog Days-053.jpg", "Dog Days-071.jpg", "Dog Days-076.jpg", "Dog Days-078.jpg", "Dog Days-080.jpg", "Dog Days-083.jpg", "Dog Days-088.jpg", "06-08-22-Shadow 298.jpg", "06-08-22-Shadow 312 - Copy.jpg", "06-08-22-Shadow 431.jpg", "06-08-22-Shadow 493 - Copy.jpg", "06-08-22-Shadow 504.jpg", "06-08-22-Shadow 514.jpg", "06-08-22-Shadow 629.jpg", "06-08-22-Shadow 747.jpg", "06-08-22-Shadow 8.jpg", "Charlies Freedom.jpg", "DSCF2111.jpg", "DSCF2154.jpg", "DSCF2250.jpg", "DSCF2300.jpg", "DSCF3309.jpg", "DSCF3554.jpg", "DSCF3654.jpg", "DSCF3701.jpg", "DSCF3795.jpg", "DSCF3796.jpg", "DSCF3964.jpg", "DSCF4446.jpg", "DSCF4596.jpg", "DSCF4718.jpg", "DSCF4930.jpg", "DSCF5157.jpg", "DSCF5223.jpg", "ForgettableStills-11.jpg", "ForgettableStills-15.jpg", "ForgettableStills-18.jpg", "ForgettableStills-2.jpg", "ForgettableStills-22.jpg", "ForgettableStills-27.jpg", "ForgettableStills-34.jpg", "ForgettableStills-37.jpg", "ForgettableStills-6.jpg", "Missionary-134.jpg", "Missionary-142.jpg", "Missionary-151.jpg", "Missionary-162.jpg", "Missionary-163.jpg", "Missionary-183.jpg", "Missionary-191.jpg", "Pigman118.jpg", "Pigman292.jpg", "Pigman350.jpg", "Pigman402.jpg", "Pigman439.jpg", "Pigman645.jpg", "Pigman668.jpg", "Rhythms-1.jpg", "Rhythms-13.jpg", "Rhythms-21.jpg", "Rhythms-4.jpg", "Rhythms-41.jpg", "Rhythms-6.jpg", "Rhythms-7.jpg", "IMG_3375.jpg", "IMG_3395-2.jpg", "IMG_3411.jpg", "IMG_6067.jpg"]
+
+        var gallery = document.getElementById("gallery");
+
+        for (var i = 0; i < images.length; i++) {
+            gallery.innerHTML += "<div class='gallery-item'><div class='content'><img src='images/2. Unit Stills/small/"+ images[i] + "' alt=''></div></div>"
+        }
+
+    </script>
+
+    <script>
+        var gallery = document.querySelector('#gallery');
+        var getVal = function (elem, style) { return parseInt(window.getComputedStyle(elem).getPropertyValue(style)); };
+        var getHeight = function (item) { return item.querySelector('.content').getBoundingClientRect().height; };
+        var resizeAll = function () {
+            var altura = getVal(gallery, 'grid-auto-rows');
+            var gap = getVal(gallery, 'grid-row-gap');
+            gallery.querySelectorAll('.gallery-item').forEach(function (item) {
+                var el = item;
+                el.style.gridRowEnd = "span " + Math.ceil((getHeight(item) + gap) / (altura + gap));
+            });
+        };
+        gallery.querySelectorAll('img').forEach(function (item) {
+            item.classList.add('byebye');
+            if (item.complete) {
+                console.log(item.src);
+            }
+            else {
+                item.addEventListener('load', function () {
+                    var altura = getVal(gallery, 'grid-auto-rows');
+                    var gap = getVal(gallery, 'grid-row-gap');
+                    var gitem = item.parentElement.parentElement;
+                    gitem.style.gridRowEnd = "span " + Math.ceil((getHeight(gitem) + gap) / (altura + gap));
+                    item.classList.remove('byebye');
+                });
+            }
+        });
+        window.addEventListener('resize', resizeAll);
+        gallery.querySelectorAll('.gallery-item').forEach(function (item) {
+            item.addEventListener('click', function () {        
+                item.classList.toggle('full');
+                if(item.classList.contains('full')) {
+                  item.childNodes[0].childNodes[0].src = item.childNodes[0].childNodes[0].src.replace("small","large");
+                  if (item.childNodes[0].childNodes[0].width < item.childNodes[0].childNodes[0].height){
+                    item.classList.add('portrait');
+                  }
+                } else{
+                  item.childNodes[0].childNodes[0].src = item.childNodes[0].childNodes[0].src.replace("large","small");
+                  item.classList.remove('portrait');
+                }        
+            });
+        });
+    </script>
+    <script src="js/fastclick.js"></script>
+    <script src="js/scroll.js"></script>
+    <script src="js/fixed-responsive-nav.js"></script>
+  </body>
+</html>
