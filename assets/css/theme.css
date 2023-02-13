@@ -183,7 +183,9 @@ hr.hr-short.hr-right, .text-right hr.hr-short {
 section {
 	position: relative;
 }
-
+div.b {
+	font-size: small;
+  }
 /* page background */
 .page-background {
 	position: absolute;
